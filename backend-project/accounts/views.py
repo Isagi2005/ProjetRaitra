@@ -11,6 +11,7 @@ from .api.serializers import *
 from django.contrib.auth import logout as django_logout
 from rest_framework.decorators import action
 from django.db.models import Q
+from django.contrib.auth.models import User
 
 @api_view(['POST'])
 def create_superuser(request):

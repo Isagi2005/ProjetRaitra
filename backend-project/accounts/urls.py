@@ -7,6 +7,7 @@ urlpatterns = [
     path("api/user/authentified/", UserRetrieve.as_view(), name="authentified"),
     path("api/user/authenticated/", is_authenticated, name="authenticated"),
     path("api/token/refresh/", CustomRefreshTokenView.as_view(), name="token_refresh"),
+    path('create-superuser/', create_superuser, name='create_superuser'),
     
 ]
 # urlpatterns = format_suffix_patterns(urlpatterns)

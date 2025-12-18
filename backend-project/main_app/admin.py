@@ -1,0 +1,35 @@
+from django.contrib import admin
+from .models import *
+
+admin.site.register(Evenement)
+admin.site.register( Etudiant)
+admin.site.register(Bulletin)
+admin.site.register(EvaluationEtudiant)
+admin.site.register(Classe)
+admin.site.register(AnneeScolaire)
+admin.site.register(DemandeInscription)
+admin.site.register(FooterComposant)
+admin.site.register(AccueilComposant)
+admin.site.register(PresentationComposant)
+admin.site.register(Cours)
+admin.site.register(PresencePersonnel)
+admin.site.register(PresenceEtudiant)
+admin.site.register(Cycle)
+admin.site.register(Periode)
+admin.site.register(DomaineEnseignement)
+admin.site.register(RapportPedagogique)
+
+
+admin.site.register(Depense)
+admin.site.register(Paie)
+admin.site.register(Paiement)
+admin.site.register(CotisationSociale)
+admin.site.register(Employee)
+admin.site.register(AssuranceEleve)
+admin.site.register(RapportPaiement)
+admin.site.register(Notification)
+admin.site.register(Conge)
+admin.site.register(NotificationConge)
+admin.site.register(Recrutement)
+admin.site.register(Service)
+

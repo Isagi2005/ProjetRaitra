@@ -83,7 +83,7 @@ class LoginSerializer(serializers.Serializer):
         password = data.get("password")
         role = data.get("role")
         role = role.strip().lower()
-        
+
         user = User.objects.filter(username=username).first()
         if not user:
             raise AuthenticationFailed("L'utilisateur n'existe pas")
@@ -96,6 +96,7 @@ class LoginSerializer(serializers.Serializer):
             role=role
         ).first()
         
+        print("ROLE DB:", user_profile.role)
         if not user_profile:
             raise AuthenticationFailed("Rôle incorrect")
 

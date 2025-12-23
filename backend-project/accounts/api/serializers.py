@@ -76,12 +76,14 @@ class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
     role = serializers.ChoiceField(choices=UserProfile.ROLE_CHOICES)
+    
 
     def validate(self, data):
         username = data.get("username")
         password = data.get("password")
         role = data.get("role")
-
+        role = role.strip().lower()
+        
         user = User.objects.filter(username=username).first()
         if not user:
             raise AuthenticationFailed("L'utilisateur n'existe pas")
@@ -91,11 +93,9 @@ class LoginSerializer(serializers.Serializer):
 
         user_profile = UserProfile.objects.filter(
             account=user,
-            role__iexact=role
+            role=role
         ).first()
-        print("ROLE REÇU:", role)
-        print("ROLE DB:", user_profile.role)
-
+        
         if not user_profile:
             raise AuthenticationFailed("Rôle incorrect")
 

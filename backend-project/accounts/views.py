@@ -106,8 +106,11 @@ class CustomTokenObtainPairView(TokenObtainPairView):
             )
             
             return res
-        except status.HTTP_400_BAD_REQUEST:
-            return Response(status.HTTP_400_BAD_REQUEST, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response(
+                {"success": False, "error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
 
 class CustomRefreshTokenView(TokenRefreshView):

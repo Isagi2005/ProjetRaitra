@@ -93,6 +93,8 @@ class LoginSerializer(serializers.Serializer):
             account=user,
             role__iexact=role
         ).first()
+        print("ROLE REÇU:", role)
+        print("ROLE DB:", user_profile.role)
 
         if not user_profile:
             raise AuthenticationFailed("Rôle incorrect")

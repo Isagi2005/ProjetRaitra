@@ -83,23 +83,28 @@ class LoginSerializer(serializers.Serializer):
         role = data.get("role")
 
         user = User.objects.filter(username=username).first()
-        
         if not user:
-            raise AuthenticationFailed("L'utilisateur n'existe pas ")
-          
+            raise AuthenticationFailed("L'utilisateur n'existe pas")
+
         if not check_password(password, user.password):
-            raise AuthenticationFailed("Mot de passe incorrect.")
-        
-        user_profile = UserProfile.objects.filter(account=user, role=role).first()
-        
+            raise AuthenticationFailed("Mot de passe incorrect")
+
+        user_profile = UserProfile.objects.filter(
+            account=user,
+            role__iexact=role
+        ).first()
+
         if not user_profile:
             raise AuthenticationFailed("Rôle incorrect")
-        if user.is_active == False :
+
+        if not user.is_active:
             raise AuthenticationFailed("Non autorisé")
+
         return {
             'user': user,
-            'role': role
+            'role': user_profile.role
         }
+
 
 class ChatGroupSerializer(serializers.ModelSerializer):
     created_by = UserSerializer(read_only=True)

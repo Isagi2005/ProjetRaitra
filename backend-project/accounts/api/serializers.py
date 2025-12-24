@@ -83,11 +83,7 @@ class LoginSerializer(serializers.Serializer):
         password = data.get("password")
         role = data.get("role")
         role = role.strip().lower()
-        print("username", username)
-        print("password", password)
-        print("role", role)
         user = User.objects.filter(username=username).first()
-        print("user", user)
         if not user:
             raise AuthenticationFailed("L'utilisateur n'existe pas")
 
@@ -95,10 +91,13 @@ class LoginSerializer(serializers.Serializer):
             raise AuthenticationFailed("Mot de passe incorrect")
 
         user_profile = UserProfile.objects.filter(
-            account=user
-            
+            account=user,
+            role=role
         ).first()
-        print("user_profile", user_profile)
+        
+        print("DEBUG: Nombre total de UserProfile =", UserProfile.objects.count())
+        print("DEBUG: Liste des UserProfile existants =", list(UserProfile.objects.values('account__username', 'role')))
+
         if not user_profile:
             raise AuthenticationFailed("Rôle incorrect")
 

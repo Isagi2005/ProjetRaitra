@@ -94,12 +94,11 @@ class LoginSerializer(serializers.Serializer):
             account=user,
             role=role
         ).first()
-        
-        print("DEBUG: Nombre total de UserProfile =", UserProfile.objects.count())
-        print("DEBUG: Liste des UserProfile existants =", list(UserProfile.objects.values('account__username', 'role')))
 
         if not user_profile:
-            raise AuthenticationFailed("Rôle incorrect")
+            print("DEBUG: Création du UserProfile manquant")
+            user_profile = UserProfile.objects.create(account=user, role=role)
+            print("DEBUG: UserProfile créé avec le rôle", role)
 
         if not user.is_active:
             raise AuthenticationFailed("Non autorisé")

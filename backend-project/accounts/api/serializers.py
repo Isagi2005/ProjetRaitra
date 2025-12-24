@@ -95,10 +95,10 @@ class LoginSerializer(serializers.Serializer):
             raise AuthenticationFailed("Mot de passe incorrect")
 
         user_profile = UserProfile.objects.filter(
-            account=user,
-            role=role
+            account=user
+            
         ).first()
-        
+        print("user_profile", user_profile)
         if not user_profile:
             raise AuthenticationFailed("Rôle incorrect")
 
